@@ -1,0 +1,111 @@
+# Introduction {#intro}
+
+The machine learning algorithms were trained to detect breast
+cancer using the Wisconsin Diagnostic Breast Cancer (WDBC)
+dataset[20]. The dataset consists of features which
+were computed from a digitized image of a fine needle aspirate
+(FNA) of a breast mass. The said features describe the characteristics
+of the cell nuclei found in the image.
+
+
+## Description of the data
+
+
+```{r}
+dat <- read.csv("data/WBCD_data.csv")
+knitr::kable(head(dat))
+```
+
+
+
+## Check how may variables are there. 
+
+```{r}
+dim(dat)
+```
+
+
+As you can see, there are `r nrow(dat)` rows and `r ncol(dat)` columns. 
+
+## Check the colum names
+
+```{r}
+colnames(dat)
+```
+
+The name of last column is `X` is because the name is not provided in the data. The first column is the `ID` of the individuals, the second column `diagnosis` is a categorical variable. 
+
+
+```{sh}
+head data/WBCD_data.csv
+```
+
+
+## 
+
+```{r}
+str(dat)
+```
+
+## Remove last column 
+
+```{r}
+dim(dat)
+dat$X=NULL 
+dim(dat)
+```
+
+```{r}
+dat_predictor = dat[, 3:ncol(dat)]
+```
+
+Now let's only extract the predictor variables. 
+
+
+
+## Check the correlation among the predictor variables. 
+
+
+```{r}
+cov_matrix = cor(dat_predictor)
+```
+
+```{r}
+knitr::kable(cov_matrix)
+```
+
+
+```{r}
+library(corrplot)
+corrplot(cov_matrix, type="upper", order="hclust", tl.col="black", tl.srt=45, tl.cex = 0.6)
+```
+
+
+## Identifying Correlated Predictors
+
+```{r}
+summary(cov_matrix[upper.tri(cov_matrix)])
+```
+
+```{r}
+highCorr <- sum(abs(cov_matrix[upper.tri(cov_matrix)]) > .9)
+highCorr
+```
+
+
+```{r}
+highlyCorDescr <- findCorrelation(cov_matrix, cutoff = .75)
+filteredDescr <- dat_predictor[,-highlyCorDescr]
+descrCor2 <- cor(filteredDescr)
+summary(descrCor2[upper.tri(descrCor2)])
+```
+
+
+```{r}
+filteredDescr <- filteredDescr[,-highlyCorDescr]
+```
+
+
+
+
+

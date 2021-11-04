@@ -1,0 +1,15 @@
+prerequisites
+intro
+description-of-the-data
+check-how-may-variables-are-there.
+check-the-colum-names
+section
+remove-last-column
+check-the-correlation-among-the-predictor-variables.
+literature
+methods
+math-example
+applications
+example-one
+example-two
+final-words
