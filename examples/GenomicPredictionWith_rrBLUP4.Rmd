@@ -1,0 +1,81 @@
+
+
+
+
+```{r}
+
+GBS<-read.csv("../data/tpg2plantgenome2012060006-sup-0002",header=T,as.is=TRUE,row.names=1)
+dim(GBS)
+head(GBS)
+```
+
+
+```{r}
+parse.GBS <- function(x) {
+ unique.x <- unique(x)
+ alleles <- setdiff(unique.x,union("H","N"))
+ y <- rep(0,length(x))
+ y[which(x==alleles[1])] <- -1
+ y[which(x==alleles[2])] <- 1
+ y[which(x=="N")] <- NA
+ return(y)
+}
+```
+
+
+```{r}
+X <- apply(GBS[,-c(1:3)],1,parse.GBS)
+dim(X) #lines by markers
+```
+
+
+```{r}
+frac.missing <- apply(X,2,function(z){length(which(is.na(z)))/length(z)})
+hist(frac.missing)
+length(which(frac.missing<0.5))
+```
+
+There are `r length(which(frac.missing<0.5))` markers with less than 50$ missing data, which is more than enough to estimate the relationship matrix for 254 lines. 
+
+```{r}
+X_fil<- X[, frac.missing<0.5]
+dim(X_fil)
+
+```
+
+```{r}
+rm(X)
+```
+
+```{r}
+library(rrBLUP)
+system.time(A1 <- A.mat(X_fil,impute.method="EM",n.core=1,max.missing=0.5))
+```
+
+```{r}
+head(A1)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

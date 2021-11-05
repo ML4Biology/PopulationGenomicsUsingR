@@ -1,111 +1,81 @@
-# Introduction {#intro}
+# Hardy-Weinberg Equilibrium
 
-The machine learning algorithms were trained to detect breast
-cancer using the Wisconsin Diagnostic Breast Cancer (WDBC)
-dataset[20]. The dataset consists of features which
-were computed from a digitized image of a fine needle aspirate
-(FNA) of a breast mass. The said features describe the characteristics
-of the cell nuclei found in the image.
+The Hardy-Weinberg equilibrium is the central law of how allele frequencies and 
+genoytpe frequencies are related in an idealized population. 
 
+```
+G1 = p
 
-## Description of the data
-
-
-```{r}
-dat <- read.csv("data/WBCD_data.csv")
-knitr::kable(head(dat))
 ```
 
 
-
-## Check how may variables are there. 
-
-```{r}
-dim(dat)
-```
-
-
-As you can see, there are `r nrow(dat)` rows and `r ncol(dat)` columns. 
-
-## Check the colum names
-
-```{r}
-colnames(dat)
-```
-
-The name of last column is `X` is because the name is not provided in the data. The first column is the `ID` of the individuals, the second column `diagnosis` is a categorical variable. 
-
-
-```{sh}
-head data/WBCD_data.csv
-```
-
-
-## 
-
-```{r}
-str(dat)
-```
-
-## Remove last column 
-
-```{r}
-dim(dat)
-dat$X=NULL 
-dim(dat)
-```
-
-```{r}
-dat_predictor = dat[, 3:ncol(dat)]
-```
-
-Now let's only extract the predictor variables. 
-
-
-
-## Check the correlation among the predictor variables. 
-
-
-```{r}
-cov_matrix = cor(dat_predictor)
-```
-
-```{r}
-knitr::kable(cov_matrix)
-```
-
-
-```{r}
-library(corrplot)
-corrplot(cov_matrix, type="upper", order="hclust", tl.col="black", tl.srt=45, tl.cex = 0.6)
-```
-
-
-## Identifying Correlated Predictors
-
-```{r}
-summary(cov_matrix[upper.tri(cov_matrix)])
-```
-
-```{r}
-highCorr <- sum(abs(cov_matrix[upper.tri(cov_matrix)]) > .9)
-highCorr
-```
-
-
-```{r}
-highlyCorDescr <- findCorrelation(cov_matrix, cutoff = .75)
-filteredDescr <- dat_predictor[,-highlyCorDescr]
-descrCor2 <- cor(filteredDescr)
-summary(descrCor2[upper.tri(descrCor2)])
-```
-
-
-```{r}
-filteredDescr <- filteredDescr[,-highlyCorDescr]
-```
+## Breeding value
 
 
 
 
 
+
+
+About The Course
+
+BioNcube, a DBT BioNEST Ag-biotech Incubator and the Statis-tics, Bioinformatics and Data Management (SBDM) Theme (http://data.icrisat.org/) at ICRISAT (https://www.icrisat.org/) in collaboration with Professor Osval A Montesinos-López from Uni-versity of Colima, Mexico (https://www.ucol.mx) is organizing a training workshop on Advanced R & Application of Machine 3rd International Workshop on Genomic Selection in Plant Breeding through Advanced R &amp; Machine Learning The course will be mainly divided into four modules.
+
+First module will given general introduction on Genomic Selec-tion in plant breeding, development of models and application. Various genomic selection models commonly used and basics of mixed model analysis and genomic selection using Bayesian ap-proaches will be discussed. This module will introduce analyzing genomic selection using R. Illustrative examples of various GS models will be discussed with participants.
+
+Second module will focus on basics of R. This module will intro-duce R to participants and will include installation, introduction to RStudio, basic data management with R, package installation, basic programming and use of R Graphics. After covering basic graphics we will also cover advanced graphics by introducing ggplot2 package.
+
+Third module will focus on general machine learning, concepts, algorithms, application in genomic selection, overfitting problem and metrics for the evaluation of prediction performance. Partici-pants will learn logistic regression and penalized logistic regres-sion—with theory and illustrative examples. Concept of multino-mial regression will also be discussed.
+
+Fourth module will be focused on artificial neural networks and deep learning for continuous outcomes. Participants will learn defining different artificial neural networks topologies, activation functions, loss functions, early-stopping method of training, the backpropagation algorithm and examples in keras for binary, ordinal, and continues outcomes and some successful applica-tions of artificial neural networks and deep learnings.
+
+module will be focused on artificial neural networks and deep learning for continuous outcomes. Participants will learn defining different artificial neural networks topologies, activation functions, loss functions, early-stopping method of training, the backpropagation algorithm and examples in keras for binary, ordinal, and continues outcomes and some successful applica-tions of artificial neural networks and deep learnings.
+
+Course Content
+
+Module 1: Genomic Selection & Linear Mixed Models
+
+Basics of Genomic Selection (GS)
+Elements of mixed models for GS
+Different GS Model
+Illustrative examples
+Module 2: Introduction to R
+
+Introduction to R & RStudio
+R Packages
+R for Data Manipulations
+R Graphics & ggplot2
+Module 3: Elements of Machine Learning – I
+
+Logistic regression
+Penalized logistic regression
+Multinomial regression
+Overfitting problem
+Module 4: Elements of Machine Learning – II
+
+Artificial neural networks vs Deep learning
+Artificial neural network topologies
+Deep learning for continuous outcomes
+Loss functions
+Early-Stopping Method of Training
+The backpropagation algorithm
+Example in Keras for univariate and multivariate outcomes
+How to Apply
+
+To apply, please complete following google form with details: https://forms.gle/4j7yBjYxGLCWQWez6
+
+Registration Fee: USD 450 / INR 30,000
+
+Last Date of Application: 20th September 2019
+
+Selected candidate will be contacted with registration details
+Course fee includes lunch & coffee breaks for 5 days
+Accommodation available in ICRISAT on request
+BioNEST incubatee / startups will be given 50% discount on course fee
+Logistics & Accommodation
+Ms. Laxmi Sarika
+ICRISAT Patancheru, Hyderabad
+Telangana, India—502 324
+email: L.Sarika@cgiar.org
+Office Landline: +91 40 3071 3365
+Mobile: +91-9703028538

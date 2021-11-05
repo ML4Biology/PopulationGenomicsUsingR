@@ -19,8 +19,8 @@ This is a _sample_ book written in **Markdown**. You can use anything that Pando
 The **bookdown** package can be installed from CRAN or Github:
 
 ```{r eval=FALSE}
-pkg_R = c("bookdown", "corrplot", "caret")
-# install.packages(pkg_R)
+pkg_R = c("bookdown", "corrplot", "caret", "rrBLUP")
+install.packages(pkg_R)
 
 ```
 
